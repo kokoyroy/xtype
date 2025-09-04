@@ -101,7 +101,7 @@ export function TypingArea({
           <div className={cn(
             "leading-relaxed font-mono",
             fontSize === 'small' ? 'text-sm' : fontSize === 'large' ? 'text-xl' : 'text-lg'
-          )} style={{ wordBreak: 'keep-all', overflowWrap: 'normal', whiteSpace: 'pre-wrap' }}>
+          )} style={{ wordBreak: 'keep-all', overflowWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
             {characters.map((char, index) => (
               <span
                 key={index}
@@ -119,7 +119,8 @@ export function TypingArea({
                   display: 'inline',
                   margin: 0,
                   padding: 0,
-                  whiteSpace: 'pre-wrap'
+                  whiteSpace: 'pre-wrap',
+                  letterSpacing: 0
                 }}
               >
                 {char.char}

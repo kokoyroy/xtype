@@ -76,7 +76,7 @@
   font-size: 1.25rem;
   line-height: 1.8;
   word-break: keep-all;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
 }
 
@@ -85,6 +85,7 @@
   margin: 0;
   padding: 0;
   white-space: pre-wrap;
+  letter-spacing: 0;
 }
 
 .char-correct {

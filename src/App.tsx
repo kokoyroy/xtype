@@ -7,6 +7,13 @@ import { VirtualKeyboard } from './components/VirtualKeyboard'
 import { SettingsPanel } from './components/SettingsPanel'
 import { RotateCcw, Settings, Keyboard, BarChart3 } from 'lucide-react'
 import { cn, playSound } from './lib/utils'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 const defaultSettings: TypingSettings = {
   difficulty: 'medium',
@@ -155,9 +162,7 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Typing Area - Takes up 3 columns on large screens */}
-          <div className="lg:col-span-3 space-y-8">
+        <div className="space-y-8">
             {/* Stats Display */}
             <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border">
               <StatsDisplay stats={stats} showLiveWpm={settings.showWpmLive} />
@@ -227,25 +232,31 @@ function App() {
                 </div>
               </div>
             )}
-          </div>
-          
-          {/* Settings Sidebar */}
-          <div className={cn(
-            "lg:col-span-1",
-            showSettings ? "block" : "hidden lg:block"
-          )}>
-            <div className="sticky top-8">
-              <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border">
-                <SettingsPanel
-                  settings={settings}
-                  onSettingsChange={handleSettingsChange}
-                  onNewText={generateNewText}
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </main>
+
+      {/* Settings Modal */}
+      <Dialog open={showSettings} onOpenChange={setShowSettings}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-3">
+              <div className="p-2 bg-primary rounded-lg">
+                <Settings className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <span>Settings</span>
+            </DialogTitle>
+            <DialogDescription>
+              Customize your typing experience with these settings.
+            </DialogDescription>
+          </DialogHeader>
+          <SettingsPanel
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
+            onNewText={generateNewText}
+            className="mt-4"
+          />
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="mt-16 bg-card/50 backdrop-blur-sm border-t border-border">

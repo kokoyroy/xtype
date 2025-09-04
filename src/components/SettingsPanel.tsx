@@ -2,7 +2,6 @@ import type { TypingSettings } from '../types'
 import { cn } from '../lib/utils'
 import { Settings, Keyboard, Volume2, VolumeX, Monitor, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
 
@@ -39,16 +38,8 @@ export function SettingsPanel({
   ]
 
   return (
-    <Card className={cn("w-full", className)}>
-      <CardHeader>
-        <CardTitle className="flex items-center space-x-3">
-          <div className="p-2 bg-primary rounded-lg">
-            <Settings className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span>Settings</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className={cn("w-full", className)}>
+      <div className="space-y-6">
 
       {/* Difficulty */}
       <div className="space-y-3">
@@ -216,8 +207,8 @@ export function SettingsPanel({
           <span>✨</span>
           <span className="ml-2">Generate New Text</span>
         </Button>
+              </div>
       </div>
-      </CardContent>
-    </Card>
+    </div>
   )
 }
