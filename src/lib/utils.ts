@@ -60,8 +60,7 @@ export function getFingerForKey(key: string): string {
   const keyToFinger: Record<string, string> = {
     // Left Pinky (Little finger)
     '`': 'left-pinky', '1': 'left-pinky', 'q': 'left-pinky', 'a': 'left-pinky', 'z': 'left-pinky',
-    '\\': 'left-pinky', '[': 'left-pinky', ']': 'left-pinky', 'tab': 'left-pinky', 'caps': 'left-pinky',
-    'shift': 'left-pinky', 'ctrl': 'left-pinky', 'alt': 'left-pinky',
+    'tab': 'left-pinky', 'caps': 'left-pinky',
     
     // Left Ring finger
     '2': 'left-ring', 'w': 'left-ring', 's': 'left-ring', 'x': 'left-ring',
@@ -86,8 +85,10 @@ export function getFingerForKey(key: string): string {
     // Right Pinky (Little finger)
     '0': 'right-pinky', '-': 'right-pinky', '=': 'right-pinky', 'p': 'right-pinky',
     '[': 'right-pinky', ']': 'right-pinky', '\\': 'right-pinky', ';': 'right-pinky',
-    "'": 'right-pinky', '/': 'right-pinky', 'shift': 'right-pinky', 'enter': 'right-pinky',
-    'backspace': 'right-pinky', 'ctrl': 'right-pinky', 'alt': 'right-pinky',
+    "'": 'right-pinky', '/': 'right-pinky', 'enter': 'right-pinky', 'backspace': 'right-pinky',
+    
+    // Special keys (both hands)
+    'shift': 'thumb', 'ctrl': 'thumb', 'alt': 'thumb',
     
     // Thumb (both hands)
     ' ': 'thumb'
@@ -102,7 +103,7 @@ let audioContext: AudioContext | null = null
 function getAudioContext(): AudioContext | null {
   if (!audioContext) {
     try {
-      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+      audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
     } catch (error) {
       console.warn('Audio not supported:', error)
       return null
@@ -146,7 +147,7 @@ export function playSound(type: 'correct' | 'incorrect' | 'complete', enabled: b
         oscillator.start(ctx.currentTime)
         oscillator.stop(ctx.currentTime + 0.2)
         break
-      case 'complete':
+      case 'complete': {
         // Play a short melody
         const frequencies = [523, 659, 784] // C, E, G
         frequencies.forEach((freq, index) => {
@@ -161,6 +162,7 @@ export function playSound(type: 'correct' | 'incorrect' | 'complete', enabled: b
           osc.stop(ctx.currentTime + index * 0.1 + 0.2)
         })
         break
+      }
     }
   } catch (error) {
     // Silently fail if audio context is not supported

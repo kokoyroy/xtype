@@ -191,8 +191,10 @@ export function useTypingEngine(initialSettings: TypingSettings) {
   }, [initializeText])
 
   // Generate new text
-  const generateNewText = useCallback(() => {
-    const newText = getRandomWords(settings.difficulty, settings.wordCount).join(' ')
+  const generateNewText = useCallback((newDifficulty?: string, newWordCount?: number) => {
+    const difficulty = newDifficulty || settings.difficulty
+    const wordCount = newWordCount || settings.wordCount
+    const newText = getRandomWords(difficulty as 'easy' | 'medium' | 'hard', wordCount).join(' ')
     initializeText(newText)
   }, [settings.wordCount, settings.difficulty, initializeText])
 

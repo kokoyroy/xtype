@@ -77,6 +77,7 @@ export function TypingArea({
     )
   }
 
+
   return (
     <div className="relative">
       <div 
@@ -97,31 +98,37 @@ export function TypingArea({
         tabIndex={0}
       >
         <div className="p-8">
-        <div className={cn(
-          "leading-relaxed font-mono",
-          fontSize === 'small' ? 'text-sm' : fontSize === 'large' ? 'text-xl' : 'text-lg'
-        )} style={{ wordBreak: 'keep-all', overflowWrap: 'normal', whiteSpace: 'pre-wrap' }}>
-          {characters.map((char, index) => (
-            <span
-              key={index}
-              data-index={index}
-              className={cn(
-                "relative transition-all duration-200 ease-in-out",
-                {
-                  'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200': char.status === 'correct',
-                  'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200': char.status === 'incorrect', 
-                  'bg-primary text-primary-foreground shadow-lg transform scale-110': char.status === 'current',
-                  'text-muted-foreground': char.status === 'pending'
-                }
-              )}
-            >
-{char.char}
-              {char.status === 'current' && (
-                <span className="absolute top-0 left-0 w-full h-full bg-blue-400/30 rounded-sm animate-pulse" />
-              )}
-            </span>
-          ))}
-        </div>
+          <div className={cn(
+            "leading-relaxed font-mono",
+            fontSize === 'small' ? 'text-sm' : fontSize === 'large' ? 'text-xl' : 'text-lg'
+          )} style={{ wordBreak: 'keep-all', overflowWrap: 'normal', whiteSpace: 'pre-wrap' }}>
+            {characters.map((char, index) => (
+              <span
+                key={index}
+                data-index={index}
+                className={cn(
+                  "relative transition-all duration-200 ease-in-out inline-block",
+                  {
+                    'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200': char.status === 'correct',
+                    'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200': char.status === 'incorrect', 
+                    'bg-primary text-primary-foreground shadow-lg transform scale-110': char.status === 'current',
+                    'text-muted-foreground': char.status === 'pending'
+                  }
+                )}
+                style={{ 
+                  display: 'inline',
+                  margin: 0,
+                  padding: 0,
+                  whiteSpace: 'pre-wrap'
+                }}
+              >
+                {char.char}
+                {char.status === 'current' && (
+                  <span className="absolute top-0 left-0 w-full h-full bg-blue-400/30 rounded-sm animate-pulse" />
+                )}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
       

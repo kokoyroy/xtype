@@ -54,7 +54,7 @@ function App() {
       
       handleKeyPress(key)
     }
-  }, [characters, currentIndex, handleKeyPress, settings.soundEnabled])
+  }, [characters, currentIndex, handleKeyPress, settings.soundEnabled, settings.volume])
 
   const handleSettingsChange = useCallback((newSettings: Partial<TypingSettings>) => {
     updateSettings(newSettings)
@@ -80,7 +80,7 @@ function App() {
     if (newSettings.wordCount !== undefined || newSettings.difficulty !== undefined) {
       // Small delay to ensure settings are updated first
       setTimeout(() => {
-        generateNewText()
+        generateNewText(newSettings.difficulty, newSettings.wordCount)
       }, 100)
     }
   }, [updateSettings, generateNewText])
@@ -198,7 +198,7 @@ function App() {
                     <span>Session Complete! 🎉</span>
                   </h3>
                   <button
-                    onClick={generateNewText}
+                    onClick={() => generateNewText()}
                     className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl font-medium"
                   >
                     Try Again

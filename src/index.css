@@ -81,7 +81,10 @@
 }
 
 .typing-text span {
-  white-space: nowrap;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
 }
 
 .char-correct {
