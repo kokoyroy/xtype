@@ -78,6 +78,8 @@
   word-break: keep-all;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  letter-spacing: 0;
+  word-spacing: 0;
 }
 
 .typing-text span {
@@ -86,6 +88,7 @@
   padding: 0;
   white-space: pre-wrap;
   letter-spacing: 0;
+  word-spacing: 0;
 }
 
 .char-correct {

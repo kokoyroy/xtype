@@ -107,7 +107,7 @@ export function TypingArea({
                 key={index}
                 data-index={index}
                 className={cn(
-                  "relative transition-all duration-200 ease-in-out inline-block",
+                  "relative transition-all duration-200 ease-in-out",
                   {
                     'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200': char.status === 'correct',
                     'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200': char.status === 'incorrect', 
@@ -120,7 +120,13 @@ export function TypingArea({
                   margin: 0,
                   padding: 0,
                   whiteSpace: 'pre-wrap',
-                  letterSpacing: 0
+                  letterSpacing: 0,
+                  wordSpacing: 0,
+                  fontSize: 'inherit',
+                  lineHeight: 'inherit',
+                  border: 'none',
+                  outline: 'none',
+                  textDecoration: 'none'
                 }}
               >
                 {char.char}
