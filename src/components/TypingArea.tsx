@@ -32,6 +32,16 @@ export function TypingArea({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't prevent default for browser shortcuts (Cmd+R, Cmd+Shift+R, etc.)
+      if (e.metaKey || e.ctrlKey) {
+        return
+      }
+      
+      // Don't prevent default for function keys, arrows, etc.
+      if (e.key.length > 1 && e.key !== 'Backspace') {
+        return
+      }
+      
       e.preventDefault()
       
       if (e.key === 'Backspace') {
