@@ -4,6 +4,7 @@ import { Settings, Keyboard, Volume2, VolumeX, Monitor, Sun, Moon } from 'lucide
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
+import { Slider } from '@/components/ui/slider'
 
 interface SettingsPanelProps {
   settings: TypingSettings
@@ -152,15 +153,33 @@ export function SettingsPanel({
             />
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border">
-            <div className="flex items-center space-x-3">
-              {settings.soundEnabled ? <Volume2 className="h-4 w-4 text-muted-foreground" /> : <VolumeX className="h-4 w-4 text-muted-foreground" />}
-              <span className="text-sm font-medium text-foreground">Sound Effects</span>
+          <div className="p-3 bg-muted/50 rounded-lg border border-border space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                {settings.soundEnabled ? <Volume2 className="h-4 w-4 text-muted-foreground" /> : <VolumeX className="h-4 w-4 text-muted-foreground" />}
+                <span className="text-sm font-medium text-foreground">Sound Effects</span>
+              </div>
+              <Switch
+                checked={settings.soundEnabled}
+                onCheckedChange={(checked) => onSettingsChange({ soundEnabled: checked })}
+              />
             </div>
-            <Switch
-              checked={settings.soundEnabled}
-              onCheckedChange={(checked) => onSettingsChange({ soundEnabled: checked })}
-            />
+            {settings.soundEnabled && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">Volume</span>
+                  <span className="text-xs text-muted-foreground">{Math.round(settings.volume * 100)}%</span>
+                </div>
+                <Slider
+                  value={[settings.volume]}
+                  onValueChange={(value) => onSettingsChange({ volume: value[0] })}
+                  max={1}
+                  min={0}
+                  step={0.1}
+                  className="w-full"
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border">

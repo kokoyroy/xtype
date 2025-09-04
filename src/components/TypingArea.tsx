@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CharacterState } from '../types'
 import { cn } from '../lib/utils'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,6 +10,7 @@ interface TypingAreaProps {
   onBackspace: () => void
   isActive: boolean
   className?: string
+  fontSize?: 'small' | 'medium' | 'large'
 }
 
 export function TypingArea({ 
@@ -18,9 +19,16 @@ export function TypingArea({
   onKeyPress, 
   onBackspace, 
   isActive,
-  className 
+  className,
+  fontSize = 'medium'
 }: TypingAreaProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [overlayVisible, setOverlayVisible] = useState(true)
+
+  // Reset overlay visibility when text changes (new text generated)
+  useEffect(() => {
+    setOverlayVisible(true)
+  }, [characters])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -89,13 +97,16 @@ export function TypingArea({
         tabIndex={0}
       >
         <div className="p-8">
-        <div className="flex flex-wrap leading-relaxed text-lg font-mono" style={{ wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+        <div className={cn(
+          "leading-relaxed font-mono",
+          fontSize === 'small' ? 'text-sm' : fontSize === 'large' ? 'text-xl' : 'text-lg'
+        )} style={{ wordBreak: 'keep-all', overflowWrap: 'normal', whiteSpace: 'pre-wrap' }}>
           {characters.map((char, index) => (
             <span
               key={index}
               data-index={index}
               className={cn(
-                "relative transition-all duration-200 ease-in-out px-0.5 py-1 rounded-sm",
+                "relative transition-all duration-200 ease-in-out",
                 {
                   'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200': char.status === 'correct',
                   'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200': char.status === 'incorrect', 
@@ -103,11 +114,8 @@ export function TypingArea({
                   'text-muted-foreground': char.status === 'pending'
                 }
               )}
-              style={{
-                minWidth: char.char === ' ' ? '0.5rem' : 'auto'
-              }}
             >
-              {char.char === ' ' ? '\u00A0' : char.char}
+{char.char}
               {char.status === 'current' && (
                 <span className="absolute top-0 left-0 w-full h-full bg-blue-400/30 rounded-sm animate-pulse" />
               )}
@@ -117,12 +125,13 @@ export function TypingArea({
         </div>
       </div>
       
-      {!isActive && currentIndex === 0 && (
+      {overlayVisible && !isActive && currentIndex === 0 && (
         <div 
           className="absolute inset-0 flex items-center justify-center bg-card/90 backdrop-blur-sm rounded-lg border border-border cursor-pointer"
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
+            setOverlayVisible(false)
             if (containerRef.current) {
               containerRef.current.focus()
               // Simulate a click on the typing area to ensure focus

@@ -65,9 +65,10 @@ export function useTypingEngine(initialSettings: TypingSettings) {
       intervalRef.current = setInterval(() => {
         if (startTimeRef.current) {
           const elapsed = Date.now() - startTimeRef.current
-          setStats(prev => ({ ...prev, timeElapsed: elapsed }))
+          const elapsedSeconds = Math.floor(elapsed / 1000)
+          setStats(prev => ({ ...prev, timeElapsed: elapsedSeconds }))
         }
-      }, 100)
+      }, 1000)
     }
     
     setIsActive(true)
@@ -165,6 +166,27 @@ export function useTypingEngine(initialSettings: TypingSettings) {
 
   // Reset the typing session
   const reset = useCallback(() => {
+    // Stop timer first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+    startTimeRef.current = null
+    setIsActive(false)
+    
+    // Reset stats immediately
+    setStats({
+      wpm: 0,
+      accuracy: 100,
+      correctChars: 0,
+      incorrectChars: 0,
+      totalChars: 0,
+      timeElapsed: 0,
+      startTime: null,
+      isComplete: false
+    })
+    
+    // Then initialize new text
     initializeText()
   }, [initializeText])
 

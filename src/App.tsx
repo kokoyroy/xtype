@@ -12,7 +12,8 @@ const defaultSettings: TypingSettings = {
   difficulty: 'medium',
   wordCount: 50,
   showKeyboard: true,
-  soundEnabled: false,
+  soundEnabled: true,
+  volume: 0.5,
   theme: 'system',
   fontSize: 'medium',
   showWpmLive: true,
@@ -46,9 +47,9 @@ function App() {
       
       // Play sound effect
       if (correct) {
-        playSound('correct', settings.soundEnabled)
+        playSound('correct', settings.soundEnabled, settings.volume)
       } else {
-        playSound('incorrect', settings.soundEnabled)
+        playSound('incorrect', settings.soundEnabled, settings.volume)
       }
       
       handleKeyPress(key)
@@ -104,9 +105,9 @@ function App() {
   // Play completion sound when test is complete
   useEffect(() => {
     if (stats.isComplete) {
-      playSound('complete', settings.soundEnabled)
+      playSound('complete', settings.soundEnabled, settings.volume)
     }
-  }, [stats.isComplete, settings.soundEnabled])
+  }, [stats.isComplete, settings.soundEnabled, settings.volume])
 
   const currentChar = characters[currentIndex]?.char || ''
 
@@ -170,11 +171,8 @@ function App() {
                 onKeyPress={handleKeyPressWithFeedback}
                 onBackspace={handleBackspace}
                 isActive={isActive}
-                className={cn(
-                  "transition-all duration-200",
-                  settings.fontSize === 'small' && "text-sm",
-                  settings.fontSize === 'large' && "text-xl"
-                )}
+                fontSize={settings.fontSize}
+                className="transition-all duration-200"
               />
             </div>
             
@@ -222,7 +220,7 @@ function App() {
                   </div>
                   <div className="bg-secondary/50 rounded-xl p-4">
                     <p className="text-3xl font-bold text-orange-600">
-                      {Math.round(stats.timeElapsed / 1000)}s
+                      {stats.timeElapsed}s
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">Time taken</p>
                   </div>

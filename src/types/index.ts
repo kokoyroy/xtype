@@ -30,6 +30,7 @@ export interface TypingSettings {
   wordCount: number
   showKeyboard: boolean
   soundEnabled: boolean
+  volume: number
   theme: 'light' | 'dark' | 'system'
   fontSize: 'small' | 'medium' | 'large'
   showWpmLive: boolean
