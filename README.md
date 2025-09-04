@@ -2,10 +2,10 @@
 
 A beautiful, feature-rich typing application built with React, TypeScript, and Tailwind CSS. Learn to type faster and more accurately with real-time feedback and interactive features.
 
-![TypeX Demo](https://img.shields.io/badge/Live%20Demo-xtype.pages.dev-blue?style=for-the-badge&logo=react)
-![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4+-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+[![TypeX Demo](https://img.shields.io/badge/Live%20Demo-xtype.pages.dev-blue?style=for-the-badge&logo=react)](https://xtype.pages.dev/)
+[![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4+-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 ## ✨ Features
 
@@ -178,8 +178,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 - **Live Demo**: [https://xtype.pages.dev/](https://xtype.pages.dev/)
-- **GitHub**: [Your GitHub Profile]
-- **LinkedIn**: [Your LinkedIn Profile]
+- **LinkedIn**: [https://www.linkedin.com/in/kourouklidis/](https://www.linkedin.com/in/kourouklidis/)
+- **GitHub**: [https://github.com/kokoyroy](https://github.com/kokoyroy)
 
 ---
 
